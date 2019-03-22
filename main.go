@@ -43,6 +43,8 @@ func main() {
 	r.GET("/cars", getCars) //maybe name
 	r.GET("/create", getCreate)
 	r.POST("/create", create)
+	r.GET("/update", getCreate)
+	r.POST("/update", update)
 	http.ListenAndServe(":8080", r)
 }
 
@@ -90,7 +92,7 @@ func create(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		http.Error(w, http.StatusText(400), http.StatusBadRequest)
 		return
 	}
-
+	fmt.Println(c)
 	hp, err := strconv.Atoi(r.FormValue("HP"))
 	if err != nil {
 		http.Error(w, http.StatusText(400), http.StatusBadRequest)
@@ -111,7 +113,5 @@ func create(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 		return
 	}
-
 	fmt.Fprint(w, "Created!")
-
 }
